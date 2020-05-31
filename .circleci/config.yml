@@ -3,12 +3,24 @@ version: 2.1
 jobs:
   build_linux:
     docker:
-      - image: ryangraham/keyring:0.0.1
+      - image: ryangraham/keyring:0.0.2
     steps:
       - checkout
       - run:
           name: Build & Install
           command: make install
+      - run:
+          name: dbus
+          command: eval "$(dbus-launch --sh-syntax)"
+      - run:
+          name: mkdir keyring
+          command: mkdir -p ~/.cache && mkdir -p ~/.local/share/keyrings
+      - run:
+          name: unlock keyring
+          command: eval "$(printf '\n' | gnome-keyring-daemon --unlock)"
+      - run:
+          name: start keyring daemon
+          command: eval "$(printf '\n' | gnome-keyring-daemon --unlock)"
       - run:
           name: Run example
           command: make example

@@ -20,7 +20,9 @@ ENV TOOLS \
 
 ENV DEPS \
     libglib2.0-dev \
-    libsecret-1-dev
+    libsecret-1-dev \
+    gnome-keyring \
+    dbus-x11
 
 RUN apt-get update \
     && apt-get install -y \
