@@ -15,17 +15,13 @@ jobs:
               sudo apt purge --auto-remove cmake &&
               sudo pip install --upgrade cmake
       - run:
-          name: dbus
-          command: eval "$(dbus-launch --sh-syntax)"
-      - run:
-          name: mkdir keyring
-          command: mkdir -p ~/.cache && mkdir -p ~/.local/share/keyrings
-      - run:
-          name: unlock keyring
-          command: printf '\n' | gnome-keyring-daemon --unlock
-      - run:
-          name: start keyring daemon
-          command: printf '\n' | gnome-keyring-daemon --start
+          name: start keyring
+          command: >
+              eval "$(dbus-launch --sh-syntax)"
+              mkdir -p ~/.cache
+              mkdir -p ~/.local/share/keyrings
+              eval "$(printf '\n' | gnome-keyring-daemon --unlock)"
+              eval "$(printf '\n' | /usr/bin/gnome-keyring-daemon --start)"
       - run:
           name: Build & Install
           command: sudo make install
