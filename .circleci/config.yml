@@ -28,7 +28,7 @@ jobs:
               make example
       - run:
           name: Run example
-          command: make example
+          command: ./examples/print/build/print
 
   build_mac:
     macos:
