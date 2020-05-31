@@ -7,6 +7,8 @@ find_package(keyring CONFIG REQUIRED)
 message("keyring: ${keyring}")
 include_directories(${keyring})
 
+INCLUDE_DIRECTORIES(thirdparty)
+
 add_executable(${PROJECT_NAME} src/main.cc)
 target_link_libraries(${PROJECT_NAME} keyring::keyring)
 
