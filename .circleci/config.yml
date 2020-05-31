@@ -15,10 +15,10 @@ jobs:
               sudo apt purge --auto-remove cmake &&
               sudo pip install --upgrade cmake
       - run:
-          name: Build & Install
+          name: build & install
           command: sudo make install
       - run:
-          name: start keyring
+          name: start keyring & run tests
           command: >
               eval "$(dbus-launch --sh-syntax)" &&
               mkdir -p ~/.cache &&
@@ -26,11 +26,6 @@ jobs:
               eval "$(printf '\n' | gnome-keyring-daemon --unlock)" &&
               eval "$(printf '\n' | /usr/bin/gnome-keyring-daemon --start)" &&
               make example
-      - run:
-          name: Run example
-          command: >
-              make example &&
-              ./examples/print/build/print
 
   build_mac:
     macos:
