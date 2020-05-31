@@ -12,9 +12,9 @@ jobs:
       - run:
           name: install cmake
           command: >
-              sudo apt purge --auto-remove cmake && \
-              sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
-              sudo apt update && \
+              sudo apt purge --auto-remove cmake &&
+              sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' &&
+              sudo apt update &&
               sudo apt install -y cmake
       - run:
           name: dbus
