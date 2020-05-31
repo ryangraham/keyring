@@ -8,7 +8,7 @@
 
 namespace keyring {
 
-const SecretSchema *keyring_schema(void) {
+inline const SecretSchema *keyring_schema(void) {
   static const SecretSchema schema = {
       "org.keyring.Password",
       SECRET_SCHEMA_DONT_MATCH_NAME,
@@ -17,8 +17,9 @@ const SecretSchema *keyring_schema(void) {
   return &schema;
 }
 
-int set_password(const std::string &service_name, const std::string &account,
-                 const std::string &password) {
+inline int set_password(const std::string &service_name,
+                        const std::string &account,
+                        const std::string &password) {
   GError *error = NULL;
   std::string label = service_name + "-" + account;
   secret_password_store_sync(keyring_schema(), SECRET_COLLECTION_DEFAULT,
@@ -35,8 +36,8 @@ int set_password(const std::string &service_name, const std::string &account,
   return 0;
 }
 
-int get_password(const std::string &service_name, const std::string &account,
-                 std::string &password) {
+inline int get_password(const std::string &service_name,
+                        const std::string &account, std::string &password) {
   GError *error = NULL;
 
   gchar *tmp_password = secret_password_lookup_sync(

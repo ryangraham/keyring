@@ -7,15 +7,16 @@
 
 namespace keyring {
 
-int set_password(const std::string &service_name, const std::string &account,
-                 const std::string &password) {
+inline int set_password(const std::string &service_name,
+                        const std::string &account,
+                        const std::string &password) {
   return SecKeychainAddGenericPassword(
       nullptr, service_name.size(), service_name.c_str(), account.size(),
       account.c_str(), password.size(), password.c_str(), nullptr);
 }
 
-int get_password(const std::string &service_name, const std::string &account,
-                 std::string &password) {
+inline int get_password(const std::string &service_name,
+                        const std::string &account, std::string &password) {
   UInt32 pw_len;
   char *buffer;
 
