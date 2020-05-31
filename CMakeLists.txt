@@ -5,9 +5,24 @@ project(keyring VERSION 0.0.1 LANGUAGES CXX)
 
 include(GNUInstallDirs)
 
+include(FindPkgConfig)
+
 add_library(${PROJECT_NAME} INTERFACE)
 
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
+
+if(APPLE)
+        FIND_LIBRARY(SECURITY Security)
+endif(APPLE)
+
+if(UNIX AND NOT APPLE)
+        set(LINUX TRUE)
+endif()
+
+if(LINUX)
+        pkg_check_modules(LIBSECRET libsecret-1)
+        include_directories(${LIBSECRET_INCLUDE_DIRS})
+endif()
 
 target_include_directories(
     ${PROJECT_NAME}
