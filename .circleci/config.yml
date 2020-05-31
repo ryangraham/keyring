@@ -34,7 +34,7 @@ jobs:
       - checkout
       - run:
           name: install cmake
-          command: brew install cmake
+          command: sudo pip install --upgrade cmake
       - run:
           name: build & install
           command: make install
