@@ -20,16 +20,16 @@ jobs:
       - run:
           name: start keyring
           command: >
-              eval "$(dbus-launch --sh-syntax)"
-              mkdir -p ~/.cache
-              mkdir -p ~/.local/share/keyrings
-              eval "$(printf '\n' | gnome-keyring-daemon --unlock)"
-              eval "$(printf '\n' | /usr/bin/gnome-keyring-daemon --start)"
+              eval "$(dbus-launch --sh-syntax)" &&
+              mkdir -p ~/.cache &&
+              mkdir -p ~/.local/share/keyrings &&
+              eval "$(printf '\n' | gnome-keyring-daemon --unlock)" &&
+              eval "$(printf '\n' | /usr/bin/gnome-keyring-daemon --start)" &&
               make example
       - run:
           name: Run example
           command: >
-              make example
+              make example &&
               ./examples/print/build/print
 
   build_mac:
