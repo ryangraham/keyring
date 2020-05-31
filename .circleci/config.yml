@@ -2,13 +2,13 @@ version: 2.1
 
 jobs:
   build_linux:
-    docker:
-      - image: ryangraham/keyring:0.0.2
+    machine:
+      image: ubuntu-1604:202004-01
     steps:
       - checkout
       - run:
-          name: Build & Install
-          command: make install
+          name: apt
+          command: apt-get update && apt-get install -y cmake libglib2.0-dev libsecret-1-dev gnome-keyring dbus-x11
       - run:
           name: dbus
           command: eval "$(dbus-launch --sh-syntax)"
@@ -21,6 +21,9 @@ jobs:
       - run:
           name: start keyring daemon
           command: printf '\n' | gnome-keyring-daemon --start
+      - run:
+          name: Build & Install
+          command: make install
       - run:
           name: Run example
           command: make example
