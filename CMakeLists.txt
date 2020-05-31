@@ -13,6 +13,7 @@ target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
 if(APPLE)
         FIND_LIBRARY(SECURITY Security)
+        target_link_libraries(${PROJECT_NAME} INTERFACE ${SECURITY})
 endif(APPLE)
 
 if(UNIX AND NOT APPLE)
@@ -21,7 +22,9 @@ endif()
 
 if(LINUX)
         pkg_check_modules(LIBSECRET libsecret-1)
-        include_directories(${LIBSECRET_INCLUDE_DIRS})
+        message("libsecret: ${LIBSECRET_INCLUDE_DIRS}")
+        target_include_directories(${PROJECT_NAME} INTERFACE ${LIBSECRET_INCLUDE_DIRS})
+        target_link_libraries(${PROJECT_NAME} INTERFACE ${LIBSECRET_LIBRARIES}})
 endif()
 
 target_include_directories(
@@ -30,6 +33,7 @@ target_include_directories(
     $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
+
 
 # Install
 install(TARGETS ${PROJECT_NAME}
