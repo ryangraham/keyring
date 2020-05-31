@@ -2,7 +2,7 @@
 
 # keyring
 
-C++ library for storing application passwords in OS X keychain & Gnome keyring
+C++ library for storing application passwords in OS X Keychain & GNOME keyring
 
 ## Examples
 
