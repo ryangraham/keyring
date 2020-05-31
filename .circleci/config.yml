@@ -28,7 +28,7 @@ jobs:
           command: printf '\n' | gnome-keyring-daemon --start
       - run:
           name: Build & Install
-          command: make install
+          command: sudo make install
       - run:
           name: Run example
           command: make example
