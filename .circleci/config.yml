@@ -11,8 +11,7 @@ jobs:
           command: sudo apt-get update && sudo apt-get install -y libglib2.0-dev libsecret-1-dev gnome-keyring dbus-x11
       - run:
           name: install cmake
-          command:
-            - >
+          command: >
               sudo apt purge --auto-remove cmake && \
               sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main' && \
               sudo apt update && \
