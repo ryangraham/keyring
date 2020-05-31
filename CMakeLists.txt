@@ -24,7 +24,7 @@ if(LINUX)
         pkg_check_modules(LIBSECRET libsecret-1)
         message("libsecret: ${LIBSECRET_INCLUDE_DIRS}")
         target_include_directories(${PROJECT_NAME} INTERFACE ${LIBSECRET_INCLUDE_DIRS})
-        target_link_libraries(${PROJECT_NAME} INTERFACE ${LIBSECRET_LIBRARIES}})
+        target_link_libraries(${PROJECT_NAME} INTERFACE ${LIBSECRET_LIBRARIES})
 endif()
 
 target_include_directories(
