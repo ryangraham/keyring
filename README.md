@@ -1,3 +1,4 @@
+[![Build Status](https://circleci.com/gh/ryangraham/keyring.svg?style=svg)](https://circleci.com/gh/ryangraham/keyring)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ryangraham/keyring/master/LICENSE)
 
 # keyring
