@@ -1,5 +1,3 @@
-#pragma once
-
 #ifdef __APPLE__
 #include <Security/Security.h>
 
@@ -7,16 +5,15 @@
 
 namespace keyring {
 
-inline int set_password(const std::string &service_name,
-                        const std::string &account,
-                        const std::string &password) {
+int set_password(const std::string &service_name, const std::string &account,
+                 const std::string &password) {
   return SecKeychainAddGenericPassword(
       nullptr, service_name.size(), service_name.c_str(), account.size(),
       account.c_str(), password.size(), password.c_str(), nullptr);
 }
 
-inline int get_password(const std::string &service_name,
-                        const std::string &account, std::string &password) {
+int get_password(const std::string &service_name, const std::string &account,
+                 std::string &password) {
   UInt32 pw_len;
   char *buffer;
 

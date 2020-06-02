@@ -2,9 +2,6 @@
 
 #include <string>
 
-#include "linux_libsecret.h"
-#include "mac_keychain.h"
-
 namespace keyring {
 
 int set_password(const std::string &service_name, const std::string &account,

@@ -7,13 +7,14 @@ include(GNUInstallDirs)
 
 include(FindPkgConfig)
 
-add_library(${PROJECT_NAME} INTERFACE)
+file(GLOB src_files src/*.cc)
+add_library(${PROJECT_NAME} STATIC ${src_files})
 
-target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 if(APPLE)
         FIND_LIBRARY(SECURITY Security)
-        target_link_libraries(${PROJECT_NAME} INTERFACE ${SECURITY})
+        target_link_libraries(${PROJECT_NAME} PUBLIC ${SECURITY})
 endif(APPLE)
 
 if(UNIX AND NOT APPLE)
@@ -23,8 +24,8 @@ endif()
 if(LINUX)
         pkg_check_modules(LIBSECRET libsecret-1)
         message("libsecret: ${LIBSECRET_INCLUDE_DIRS}")
-        target_include_directories(${PROJECT_NAME} INTERFACE ${LIBSECRET_INCLUDE_DIRS})
-        target_link_libraries(${PROJECT_NAME} INTERFACE ${LIBSECRET_LIBRARIES})
+        target_include_directories(${PROJECT_NAME} PUBLIC ${LIBSECRET_INCLUDE_DIRS})
+        target_link_libraries(${PROJECT_NAME} PUBLIC ${LIBSECRET_LIBRARIES})
 endif()
 
 target_include_directories(
@@ -50,12 +51,13 @@ write_basic_package_version_file("${PROJECT_NAME}ConfigVersion.cmake"
 if(NOT INCLUDE_INSTALL_DIR)
   set(INCLUDE_INSTALL_DIR include/keyring)
 endif()
+set(LIBRARY_INSTALL_DIR lib)
 
 configure_package_config_file(
   "${PROJECT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
   "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
   INSTALL_DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
-  PATH_VARS INCLUDE_INSTALL_DIR)
+  PATH_VARS INCLUDE_INSTALL_DIR LIBRARY_INSTALL_DIR)
 
 install(EXPORT ${PROJECT_NAME}_Targets
         FILE ${PROJECT_NAME}Targets.cmake
