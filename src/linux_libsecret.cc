@@ -36,18 +36,19 @@ int set_password(const std::string &service_name, const std::string &account,
 int get_password(const std::string &service_name, const std::string &account,
                  std::string &password) {
   GError *error = NULL;
-
   gchar *tmp_password = secret_password_lookup_sync(
       keyring_schema(), NULL, &error, "service_name", service_name.c_str(),
       "account", account.c_str(), NULL);
 
   if (error != NULL) {
-    // TODO?
     g_error_free(error);
     return -1;
   }
 
-  password = tmp_password;
+  // Password not found
+  if (tmp_password == NULL) return -1;
+
+  password = std::string(tmp_password);
   secret_password_free(tmp_password);
   return 0;
 }
