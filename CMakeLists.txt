@@ -7,6 +7,9 @@ include(GNUInstallDirs)
 
 include(FindPkgConfig)
 
+include_directories(thirdparty)
+include_directories(include)
+
 file(GLOB src_files src/*.cc)
 add_library(${PROJECT_NAME} STATIC ${src_files})
 
@@ -34,6 +37,9 @@ target_include_directories(
     $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}>
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
+
+add_executable(test src/test_main.cc)
+target_link_libraries(test keyring)
 
 
 # Install

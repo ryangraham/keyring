@@ -25,7 +25,7 @@ jobs:
               mkdir -p ~/.local/share/keyrings &&
               eval "$(printf '\n' | gnome-keyring-daemon --unlock)" &&
               eval "$(printf '\n' | /usr/bin/gnome-keyring-daemon --start)" &&
-              make example
+              ./build/test
 
   build_mac:
     macos:
@@ -39,8 +39,8 @@ jobs:
           name: build & install
           command: make install
       - run:
-          name: run example
-          command: make example
+          name: run tests
+          command: ./build/test
 
 workflows:
   version: 2

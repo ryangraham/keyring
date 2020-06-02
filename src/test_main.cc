@@ -1,9 +1,10 @@
-#include <keyring/keyring.h>
-
-#include <iostream>
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <string>
 
-int main() {
+#include "doctest/doctest.h"
+#include "keyring/interface.h"
+
+TEST_CASE("store -> retrieve") {
   std::string service_name = "foo";
   std::string account = "bar";
   std::string password_input = "password";
@@ -12,7 +13,5 @@ int main() {
 
   keyring::get_password(service_name, account, password_output);
 
-  std::cout << password_output << std::endl;
-
-  return 0;
+  CHECK(password_input == password_output);
 }
